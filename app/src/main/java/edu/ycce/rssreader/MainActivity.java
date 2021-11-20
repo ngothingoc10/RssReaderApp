@@ -10,12 +10,23 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeedListFragment.Listener, SourceListFragment.Listener {
+import java.util.List;
 
+import retrofit.api.ApiService;
+import retrofit.model.News;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FeedListFragment.Listener, SourceListFragment.Listener, MenuAdapter.MenuItemClickListener {
+    private MenuAdapter menuAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,30 +46,59 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add(R.id.content_frame, fragment);
         ft.commit();
+        getNews();
+    }
+
+
+    private void setNavigationDrawerMenu(List<News> newsList) {
+        newsList.get(0).setSelected(true); // auto select first item
+        menuAdapter = new MenuAdapter(newsList, this);
+        RecyclerView navMenuDrawer = findViewById(R.id.main_nav_menu_recyclerview);
+        navMenuDrawer.setAdapter(menuAdapter);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.isAutoMeasureEnabled();
+        navMenuDrawer.setLayoutManager(new LinearLayoutManager(this));
+        navMenuDrawer.setHasFixedSize(false);
+        navMenuDrawer.setAdapter(menuAdapter);
+    }
+
+    private void getNews() {
+        ApiService.apiService.getNews().enqueue(new Callback<List<News>>() {
+
+            @Override
+            public void onResponse(Call<List<News>> call, Response<List<News>> response) {
+                setNavigationDrawerMenu(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<News>> call, Throwable throwable) {
+                Toast.makeText(MainActivity.this, "Call API Error!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+//        getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.action_add_source:
-                Intent intent = new Intent(this, AddSourceActivity.class);
-                startActivity(intent);
-                return true;
-            default:
+//        switch (item.getItemId()){
+//            case R.id.action_add_source:
+//                Intent intent = new Intent(this, AddSourceActivity.class);
+//                startActivity(intent);
+//                return true;
+//            default:
                 return super.onOptionsItemSelected(item);
 
-        }
+//        }
     }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item){
-        int id = item.getItemId();
+        /*int id = item.getItemId();
         Fragment fragment = null;
         Intent intent = null;
         Bundle bundle = new Bundle();
@@ -128,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        drawer.closeDrawer(GravityCompat.START);*/
         return true;
     }
 
@@ -160,5 +200,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onMenuItemClick(int newsId) {
+        Fragment fragment = null;
+        Intent intent = null;
+        Bundle bundle = new Bundle();
+
+        bundle.putInt("newsId", newsId);
+        fragment = new SourceListFragment();
+        fragment.setArguments(bundle);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.content_frame, fragment);
+        ft.commit();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
     }
 }
