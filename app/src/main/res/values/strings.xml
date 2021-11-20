@@ -7,10 +7,14 @@
     <!--<string name="nav_all">All Feeds </string>-->
     <string name="nav_add_source">Add Feed Source</string>
     <string name="nav_categories">Categories</string>
-    <string name="nav_business">Business</string>
-    <string name="nav_entertainment">Entertainment</string>
-    <string name="nav_sport">Sport</string>
-    <string name="nav_technology">Technology</string>
+<!--    <string name="nav_business">Business</string>-->
+<!--    <string name="nav_entertainment">Entertainment</string>-->
+<!--    <string name="nav_sport">Sport</string>-->
+<!--    <string name="nav_technology">Technology</string>-->
+    <string name="nav_vn_express">VnExpess</string>-->
+    <string name="nav_tuoi_tre_online">Tuổi trẻ Online</string>
+
+
     <string name="nav_other">Other</string>
     <string name="nav_sources">View Feed Sources</string>
     <string name="nav_about">About</string>

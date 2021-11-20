@@ -57,36 +57,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(MenuItem item){
         int id = item.getItemId();
         Fragment fragment = null;
         Intent intent = null;
         Bundle bundle = new Bundle();
 
         switch (id) {
-            //case R.id.nav_all:
-            case R.id.nav_business:
-                bundle.putString("category", "Business");
+ //               case R.id.nav_all:
+//            case R.id.nav_business:
+//                bundle.putString("category", "Business");
+//                fragment = new SourceListFragment();
+//                fragment.setArguments(bundle);
+//                break;
+//            case R.id.nav_entertainment:
+//                bundle.putString("category", "Entertainment");
+//                fragment = new SourceListFragment();
+//                fragment.setArguments(bundle);
+//                break;
+//            case R.id.nav_sport:
+//                bundle.putString("category", "Sport");
+//                fragment = new SourceListFragment();
+//                fragment.setArguments(bundle);
+//                break;
+//            case R.id.nav_technology:
+//                bundle.putString("category", "Technology");
+//                fragment = new SourceListFragment();
+//                fragment.setArguments(bundle);
+//                break;
+            case R.id.nav_vn_express:
+         //       bundle.putString("category", "VNExpress");
+                bundle.putInt("newsId", 1);
                 fragment = new SourceListFragment();
                 fragment.setArguments(bundle);
                 break;
-            case R.id.nav_entertainment:
-                bundle.putString("category", "Entertainment");
-                fragment = new SourceListFragment();
-                fragment.setArguments(bundle);
-                break;
-            case R.id.nav_sport:
-                bundle.putString("category", "Sport");
-                fragment = new SourceListFragment();
-                fragment.setArguments(bundle);
-                break;
-            case R.id.nav_technology:
-                bundle.putString("category", "Technology");
+            case R.id.nav_tuoi_tre_online:
+         //       bundle.putString("category", "Tuổi trẻ Online");
+                bundle.putInt("newsId", 2 );
                 fragment = new SourceListFragment();
                 fragment.setArguments(bundle);
                 break;
             case R.id.nav_other:
-                bundle.putString("category", "Other");
+     //           bundle.putString("category", "Other");
+                bundle.putInt("newsId", 3 );
+
                 fragment = new SourceListFragment();
                 fragment.setArguments(bundle);
                 break;
@@ -117,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 
     @Override
     public void itemClicked(long id){

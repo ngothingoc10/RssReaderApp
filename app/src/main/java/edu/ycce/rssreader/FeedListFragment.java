@@ -39,7 +39,7 @@ public class FeedListFragment extends ListFragment {
         Bundle arg = getArguments();
         String url;
         if(arg != null) {
-            long id = arg.getLong("id");
+            long id = arg.getLong( String.valueOf( getId() ) );
             url = urls[(int) id];
         } else {
             url = "http://feeds.feedburner.com/ndtvprofit-latest";
@@ -48,7 +48,7 @@ public class FeedListFragment extends ListFragment {
         parser.execute(url);
         parser.onFinish(new Parser.OnTaskCompleted() {
             @Override
-            public void onTaskCompleted(final ArrayList<Article> list) {
+            public void onTaskCompleted(final ArrayList<Article> list) { //lấy ra các bài báo trong 1 chủ đề(item)
                 String[] titles = new String[list.size()];
                 String[] link = new String[list.size()];
                 String[] pubDate = new String[list.size()];
@@ -72,7 +72,7 @@ public class FeedListFragment extends ListFragment {
                     item.put("date", dd);
                     lists.add(item);
                 }
-
+                //view lên app
                 SimpleAdapter adapter = new SimpleAdapter(getLayoutInflater().getContext(),lists, R.layout.listview_layout, new String[]{"title", "date"}, new int[]{R.id.text_title, R.id.text_date});
                 setListAdapter(adapter);
 

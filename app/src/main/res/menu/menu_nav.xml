@@ -15,21 +15,13 @@
         <menu>
             <group android:checkableBehavior="single">
                 <item
-                    android:id="@+id/nav_business"
+                    android:id="@+id/nav_vn_express"
                     android:icon="@android:drawable/ic_menu_send"
-                    android:title="@string/nav_business" />
+                    android:title="@string/nav_vn_express" />
                 <item
-                    android:id="@+id/nav_entertainment"
+                    android:id="@+id/nav_tuoi_tre_online"
                     android:icon="@android:drawable/ic_menu_send"
-                    android:title="@string/nav_entertainment" />
-                <item
-                    android:id="@+id/nav_sport"
-                    android:icon="@android:drawable/ic_menu_send"
-                    android:title="@string/nav_sport" />
-                <item
-                    android:id="@+id/nav_technology"
-                    android:icon="@android:drawable/ic_menu_send"
-                    android:title="@string/nav_technology" />
+                    android:title="@string/nav_tuoi_tre_online" />
                 <item
                     android:id="@+id/nav_other"
                     android:icon="@android:drawable/ic_menu_send"
