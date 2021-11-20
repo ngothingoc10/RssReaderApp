@@ -4,6 +4,7 @@ public class News {
     private int newsId;
     private String newsTitle;
     private String description;
+    private Boolean isSelected;
 
     public int getNewsId(){
         return newsId;
@@ -27,5 +28,13 @@ public class News {
 
     public void setDescription(String description){
         this.description = description;
+    }
+
+    public void setSelected(Boolean selected) {
+        isSelected = selected;
+    }
+
+    public Boolean getSelected() {
+        return isSelected;
     }
 }
