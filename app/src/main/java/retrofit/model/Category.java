@@ -6,6 +6,9 @@ public class Category {
     private int newsId;
     private String rssLink;
 
+    public Category(){
+    }
+
     public Category(int categoriesId){
         this.categoriesId = categoriesId;
     }

@@ -34,16 +34,16 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.RecyclerViewHo
     public void onBindViewHolder(RecyclerViewHolder recyclerViewHolder, int position) {
         final int currentPosition = position;
         final News news = mNewsList.get(position);
-        recyclerViewHolder.tvTitle.setText(news.getDescription());
+        recyclerViewHolder.tvTitle.setText(news.getNewsTitle());
         recyclerViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mListener.onMenuItemClick(news.getNewsId());
-                for (int i = 0; i < mNewsList.size(); i++) {
+                for (int i = -1; i <= mNewsList.size() ; i++) {
                     if (i == currentPosition) {
                         news.setSelected(true);
                     } else {
-                        mNewsList.get(i).setSelected(false);
+ //                       mNewsList.get(i).setSelected(false);
                     }
                 }
                 notifyDataSetChanged();
@@ -67,4 +67,5 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.RecyclerViewHo
     public interface MenuItemClickListener {
         void onMenuItemClick(int newsId);
     }
+
 }

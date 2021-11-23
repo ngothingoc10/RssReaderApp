@@ -10,7 +10,9 @@ import retrofit.model.News;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiService {
@@ -19,7 +21,7 @@ public interface ApiService {
             .create();
 
     ApiService apiService = new Retrofit.Builder()
-            .baseUrl("https://61986f7e164fa60017c2307d.mockapi.io/api/")
+            .baseUrl("http://192.168.1.8:8080/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
@@ -31,5 +33,12 @@ public interface ApiService {
     @GET("news")
     Call<List<News>> getNews();
 
+    //Call API
+    @POST("news")
+    Call<News> addNews(@Body News news);
 
+    @POST("news/{newsId}/categories")
+    Call<Category> addCategories(@Path("newsId") int newsId,@Body Category category);
+    @GET("{newsTitle}")
+    Call<News> getNews2(@Path("newsTitle") String newsTitle);
 }

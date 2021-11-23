@@ -6,6 +6,9 @@ public class News {
     private String description;
     private Boolean isSelected;
 
+    public News(){
+    }
+
     public int getNewsId(){
         return newsId;
     }

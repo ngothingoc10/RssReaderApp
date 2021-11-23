@@ -34,15 +34,16 @@ public class SourceListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        SQLiteHelper sQLiteHelper;
-        ArrayList<Category> feedSourceModel = null;
-        Bundle arg = getArguments();
-        int newId;
+//        SQLiteHelper sQLiteHelper;
+        final List<Category> feedSourceModel = new ArrayList<>();
+        Bundle arg = this.getArguments();
+        int newId = 0;
         if(arg != null) {
             newId = arg.getInt( "newsId" );
-        } else {
-            newId = 0;
         }
+//        else {
+//            newId = 1;
+//        }
   //      sQLiteHelper = new SQLiteHelper(getLayoutInflater().getContext());
   //      feedSourceModel = sQLiteHelper.getAllRecords(category); // chọn ra tất cả chủ đề thuộc loại báo đó
       //   Lấy API về
@@ -51,7 +52,19 @@ public class SourceListFragment extends ListFragment {
             @Override
             public void onResponse(Call<List<Category>> call, Response<List<Category>> response){
                 Toast.makeText(SourceListFragment.this.getContext(), "Call API success", Toast.LENGTH_SHORT).show();
-                List<Category> feedSourceModel =response.body();
+                feedSourceModel.addAll(response.body());
+                String[] name = new String[feedSourceModel.size()];
+
+                String[] link = new String[feedSourceModel.size()];
+                for (int i = 0; i< feedSourceModel.size(); i++) { // lấy ra all các link rss của các chủ đề tương ứng
+                    name[i] = feedSourceModel.get(i).getCategoriesTitle();
+                    link[i] = feedSourceModel.get(i).getRssLink();
+                }
+
+                FeedListFragment.urls = link;
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(getLayoutInflater().getContext(), android.R.layout.simple_list_item_1, name);
+                setListAdapter(adapter);
 
             }
 
@@ -66,17 +79,18 @@ public class SourceListFragment extends ListFragment {
 
 
 
-        String[] name = new String[feedSourceModel.size()];
-        String[] link = new String[feedSourceModel.size()];
-        for (int i=0; i<feedSourceModel.size(); i++) { // lấy ra all các link rss của các chủ đề tương ứng
-            name[i] = feedSourceModel.get(i).getCategoriesTitle();
-            link[i] = feedSourceModel.get(i).getRssLink();
-        }
-
-        FeedListFragment.urls = link;
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getLayoutInflater().getContext(), android.R.layout.simple_list_item_1, name);
-        setListAdapter(adapter);
+//        String[] name = new String[feedSourceModel.size()];
+//
+//        String[] link = new String[feedSourceModel.size()];
+//        for (int i = 0; i< feedSourceModel.size(); i++) { // lấy ra all các link rss của các chủ đề tương ứng
+//            name[i] = feedSourceModel.get(i).getCategoriesTitle();
+//            link[i] = feedSourceModel.get(i).getRssLink();
+//        }
+//
+//        FeedListFragment.urls = link;
+//
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(getLayoutInflater().getContext(), android.R.layout.simple_list_item_1, name);
+//        setListAdapter(adapter);
 
         return super.onCreateView(inflater, container, savedInstanceState);
     }

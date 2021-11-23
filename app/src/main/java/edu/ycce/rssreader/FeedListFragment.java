@@ -42,10 +42,10 @@ public class FeedListFragment extends ListFragment {
             long id = arg.getLong( String.valueOf( getId() ) );
             url = urls[(int) id];
         } else {
-            url = "http://feeds.feedburner.com/ndtvprofit-latest";
+            url = "https://vnexpress.net/rss/the-gioi.rss";
         }
         Parser parser = new Parser();
-        parser.execute(url);
+        parser.execute(url); //convert XML thành JSON
         parser.onFinish(new Parser.OnTaskCompleted() {
             @Override
             public void onTaskCompleted(final ArrayList<Article> list) { //lấy ra các bài báo trong 1 chủ đề(item)
@@ -62,7 +62,7 @@ public class FeedListFragment extends ListFragment {
                     img[i] = list.get(i).getImage();
                 }
 
-                ArrayList<HashMap<String, String>> lists = new ArrayList<>();
+                ArrayList<HashMap<String, String>> lists = new ArrayList<>();// List chứa các HanhMap(key, value)
                 HashMap<String, String> item;
                 for(int i=0; i<list.size(); i++) {
                     item = new HashMap<String, String>();
