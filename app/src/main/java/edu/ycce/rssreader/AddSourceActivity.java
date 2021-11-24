@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class AddSourceActivity extends AppCompatActivity {
 
-    SQLiteHelper sQLiteHelper;
+//    SQLiteHelper sQLiteHelper;
     FeedSourceModel feedSourceModel;
 
     @Override
@@ -28,7 +28,7 @@ public class AddSourceActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
-        sQLiteHelper = new SQLiteHelper(this);
+ //       sQLiteHelper = new SQLiteHelper(this);
     }
 
     public void addSource(View view){
@@ -44,7 +44,7 @@ public class AddSourceActivity extends AppCompatActivity {
             feedSourceModel.setCategory(category);
             feedSourceModel.setName(name);
             try {
-                sQLiteHelper.insertRecord(feedSourceModel);
+                //sQLiteHelper.insertRecord(feedSourceModel);
                 Toast toast = Toast.makeText(this, "Source Successfully Added", Toast.LENGTH_SHORT);
                 toast.show();
                 Intent intent = new Intent(this, MainActivity.class);

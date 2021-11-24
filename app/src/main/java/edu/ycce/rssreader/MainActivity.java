@@ -198,8 +198,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void itemClicked(long id){
-        Intent intent = new Intent( this, DescriptionActivity.class );
-        intent.putExtra( DescriptionActivity.ID, (int) id );
+        Intent intent = new Intent( this, WebviewActivity.class );
+        intent.putExtra( WebviewActivity.ID, (int) id );
         startActivity( intent );
     }
 

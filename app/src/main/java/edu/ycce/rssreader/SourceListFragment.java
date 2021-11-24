@@ -77,21 +77,6 @@ public class SourceListFragment extends ListFragment {
 
 
 
-
-
-//        String[] name = new String[feedSourceModel.size()];
-//
-//        String[] link = new String[feedSourceModel.size()];
-//        for (int i = 0; i< feedSourceModel.size(); i++) { // lấy ra all các link rss của các chủ đề tương ứng
-//            name[i] = feedSourceModel.get(i).getCategoriesTitle();
-//            link[i] = feedSourceModel.get(i).getRssLink();
-//        }
-//
-//        FeedListFragment.urls = link;
-//
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(getLayoutInflater().getContext(), android.R.layout.simple_list_item_1, name);
-//        setListAdapter(adapter);
-
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
