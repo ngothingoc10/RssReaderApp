@@ -22,7 +22,7 @@ public interface ApiService {
             .create();
 
     ApiService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.2:8080/")
+            .baseUrl("https://61986f7e164fa60017c2307d.mockapi.io/api/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
