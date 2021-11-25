@@ -11,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -41,4 +42,8 @@ public interface ApiService {
     Call<Category> addCategories(@Path("newsId") int newsId,@Body Category category);
     @GET("{newsTitle}")
     Call<News> getNews2(@Path("newsTitle") String newsTitle);
+
+    // api delete news
+    @DELETE("news/{newsId}")
+    Call<News> deleteNews(@Path("newsId") int newsId);
 }

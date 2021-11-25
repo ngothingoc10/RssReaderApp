@@ -8,13 +8,18 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -269,5 +274,49 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-}
+    @Override
+    public void onMenuItemLongClick(int newsId) {
+        showDialogConfirm(newsId);
+    }
 
+    private void showDialogConfirm(int newsId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View dialogView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_confirm_delete, viewGroup, false);
+        TextView tvCancel = dialogView.findViewById(R.id.tvCancel);
+        TextView tvAccept = dialogView.findViewById(R.id.tvAccept);
+
+        builder.setView(dialogView);
+        AlertDialog alertDialog = builder.create();
+        tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();
+            }
+        });
+
+        tvAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                handleDeleteNews(newsId);
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void handleDeleteNews(int newsId) {
+        ApiService.apiService.deleteNews(newsId).enqueue( new Callback<News>() {
+
+            @Override
+            public void onResponse(Call<News> call, Response<News> response) {
+                menuAdapter.removeItemWidthId(newsId);
+            }
+
+            @Override
+            public void onFailure(Call<News> call, Throwable t) {
+                Toast.makeText( MainActivity.this, "Call API Error!", Toast.LENGTH_SHORT ).show();
+            }
+        });
+    }
+}
