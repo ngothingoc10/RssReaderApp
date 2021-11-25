@@ -25,6 +25,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit.api.ApiService;
 import retrofit.model.Category;
 import retrofit.model.News;
@@ -59,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
     private void setNavigationDrawerMenu(List<News> newsList){
         newsList.get( 0 ).setSelected( true ); // auto select first item
         menuAdapter = new MenuAdapter( newsList, this );
@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 body1.addAll( response.body() );
 
 
-
                 setNavigationDrawerMenu( body1 );
             }
 
@@ -94,35 +93,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate( R.menu.menu_main, menu );
         return super.onCreateOptionsMenu( menu );
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_add_news:
-                Intent intent = new Intent(this, AddNewsActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent( this, AddNewsActivity.class );
+                startActivity( intent );
                 return true;
             case R.id.nav_add_categories:
-                 intent = new Intent(this, AddCategoriesActivity.class);
-                startActivity(intent);
+                intent = new Intent( this, AddCategoriesActivity.class );
+                startActivity( intent );
                 return true;
             default:
-        return super.onOptionsItemSelected( item );
+                return super.onOptionsItemSelected( item );
 
         }
     }
+
     @Override
-        public boolean onNavigationItemSelected(MenuItem item){
+    public boolean onNavigationItemSelected(MenuItem item){
         int id = item.getItemId();
         Fragment fragment = null;
         Intent intent = null;
         Bundle bundle = new Bundle();
 
         switch (id) {
- //               case R.id.nav_all:
+            //               case R.id.nav_all:
 //            case R.id.nav_business:
 //                bundle.putString("category", "Business");
 //                fragment = new SourceListFragment();
@@ -166,10 +166,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                fragment = new AboutFragment();
 //                break;
             case R.id.nav_add_news:
-                intent = new Intent(this, AddNewsActivity.class);
+                intent = new Intent( this, AddNewsActivity.class );
                 break;
             case R.id.nav_add_categories:
-                intent = new Intent(this, AddCategoriesActivity.class);
+                intent = new Intent( this, AddCategoriesActivity.class );
                 break;
 //            case R.id.nav_sources:
 //                bundle.putString("category", "");
@@ -182,14 +182,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content_frame, fragment);
+            ft.replace( R.id.content_frame, fragment );
             ft.commit();
         } else {
-            startActivity(intent);
+            startActivity( intent );
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+        DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
+        drawer.closeDrawer( GravityCompat.START );
         return true;
     }
 
@@ -225,17 +225,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public void onMenuItemClick(int newsId){
         if (newsId > 0) {
-            Fragment fragment = null;
-            Intent intent = null;
-            Bundle bundle = new Bundle();
+//            Fragment fragment = null;
+//            Intent intent = null;
+//            Bundle bundle = new Bundle();
 
-            bundle.putInt( "newsId", newsId );
-            fragment = new SourceListFragment();
-            fragment.setArguments( bundle );
+//            bundle.putInt( "newsId", newsId );
+//            fragment = new SourceListFragment();
 
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace( R.id.content_frame, fragment );
-            ft.commit();
+//            fragment.setArguments( bundle );
+
+            Intent intent = new Intent();
+            intent = new Intent( this, CategoryListActivity.class );
+            intent.putExtra( "newsId", newsId );
+            startActivity( intent );
+
+//
+//            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+//            ft.replace( R.id.content_frame, fragment );
+//            ft.commit();
 
             DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
             drawer.closeDrawer( GravityCompat.START );
@@ -268,48 +275,50 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     @Override
-    public void onMenuItemLongClick(int newsId) {
-        showDialogConfirm(newsId);
+    public void onMenuItemLongClick(int newsId){
+        showDialogConfirm( newsId );
     }
 
-    private void showDialogConfirm(int newsId) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        ViewGroup viewGroup = findViewById(android.R.id.content);
-        View dialogView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_confirm_delete, viewGroup, false);
-        TextView tvCancel = dialogView.findViewById(R.id.tvCancel);
-        TextView tvAccept = dialogView.findViewById(R.id.tvAccept);
+    private void showDialogConfirm(int newsId){
+        AlertDialog.Builder builder = new AlertDialog.Builder( this );
+        ViewGroup viewGroup = findViewById( android.R.id.content );
+        View dialogView = LayoutInflater.from( getApplicationContext() ).inflate( R.layout.dialog_confirm_delete, viewGroup, false );
+        TextView tvCancel = dialogView.findViewById( R.id.tvCancel );
+        TextView tvAccept = dialogView.findViewById( R.id.tvAccept );
 
-        builder.setView(dialogView);
+        builder.setView( dialogView );
         AlertDialog alertDialog = builder.create();
-        tvCancel.setOnClickListener(new View.OnClickListener() {
+        tvCancel.setOnClickListener( new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View view){
                 alertDialog.dismiss();
             }
-        });
+        } );
 
-        tvAccept.setOnClickListener(new View.OnClickListener() {
+        tvAccept.setOnClickListener( new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                handleDeleteNews(newsId);
+            public void onClick(View view){
+                handleDeleteNews( newsId );
                 alertDialog.dismiss();
             }
-        });
+        } );
         alertDialog.show();
     }
 
-    private void handleDeleteNews(int newsId) {
-        ApiService.apiService.deleteNews(newsId).enqueue( new Callback<News>() {
+    private void handleDeleteNews(int newsId){
+        ApiService.apiService.deleteNews( newsId ).enqueue( new Callback<Void>() {
 
             @Override
-            public void onResponse(Call<News> call, Response<News> response) {
-                menuAdapter.removeItemWidthId(newsId);
+            public void onResponse(Call<Void> call, Response<Void> response){
+                menuAdapter.removeItemWidthId( newsId );
+                Toast.makeText( MainActivity.this, "Call API Success!", Toast.LENGTH_SHORT ).show();
+
             }
 
             @Override
-            public void onFailure(Call<News> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t){
                 Toast.makeText( MainActivity.this, "Call API Error!", Toast.LENGTH_SHORT ).show();
             }
-        });
+        } );
     }
 }

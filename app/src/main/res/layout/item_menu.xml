@@ -2,29 +2,32 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="45dp"
     android:layout_marginBottom="10dp"
 
-    >
+    android:background="#009688">
 
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tvTitle"
-        android:layout_width="403dp"
-        android:layout_height="62dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="8dp"
-        android:background="#ffffff"
+        android:background="#B6AD5E"
         android:drawableStart="@android:drawable/ic_menu_send"
         android:drawablePadding="8dp"
         android:ellipsize="end"
+        android:fontFamily="serif"
         android:gravity="center_vertical"
+
+
+        android:hapticFeedbackEnabled="false"
+        android:linksClickable="false"
         android:maxLines="1"
         android:paddingVertical="8dp"
         android:singleLine="true"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="15dp"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
         android:textStyle="bold"
-
-
         tools:text="@string/hello_blank_fragment" />
 </RelativeLayout>

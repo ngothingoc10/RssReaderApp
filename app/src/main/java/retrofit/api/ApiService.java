@@ -22,7 +22,7 @@ public interface ApiService {
             .create();
 
     ApiService apiService = new Retrofit.Builder()
-            .baseUrl("http://192.168.1.8:8080/")
+            .baseUrl("http://192.168.1.2:8080/")
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(ApiService.class);
@@ -45,5 +45,5 @@ public interface ApiService {
 
     // api delete news
     @DELETE("news/{newsId}")
-    Call<News> deleteNews(@Path("newsId") int newsId);
+    Call<Void> deleteNews(@Path("newsId") int newsId);
 }

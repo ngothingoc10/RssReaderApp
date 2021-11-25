@@ -21,7 +21,7 @@ import retrofit2.Response;
 import retrofit.model.Category;
 
 public class SourceListFragment extends ListFragment {
-
+    private int idNews;
     static interface Listener {
         void sourceClicked(long id);
     };
@@ -41,6 +41,7 @@ public class SourceListFragment extends ListFragment {
         if(arg != null) {
             newId = arg.getInt( "newsId" );
         }
+
 //        else {
 //            newId = 1;
 //        }
@@ -91,6 +92,7 @@ public class SourceListFragment extends ListFragment {
         if(listener!=null)
             listener.sourceClicked(id);
     }
+
 
 
 }

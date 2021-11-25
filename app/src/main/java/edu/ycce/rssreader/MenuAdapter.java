@@ -16,9 +16,11 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.RecyclerViewHo
     private MenuItemClickListener mListener;
     private List<News> mNewsList;
 
+
     public MenuAdapter(List<News> newsList, Activity activity) {
         this.mListener = (MenuItemClickListener) activity;
         this.mNewsList = newsList;
+
     }
 
     @Override
@@ -39,6 +41,7 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.RecyclerViewHo
             @Override
             public void onClick(View view) {
                 mListener.onMenuItemClick(news.getNewsId());
+
                 for (int i = -1; i <= mNewsList.size() ; i++) {
                     if (i == currentPosition) {
                         news.setSelected(true);
