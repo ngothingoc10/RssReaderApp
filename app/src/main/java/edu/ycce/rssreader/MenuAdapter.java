@@ -49,6 +49,24 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.RecyclerViewHo
                 notifyDataSetChanged();
             }
         });
+
+        recyclerViewHolder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                mListener.onMenuItemLongClick(news.getNewsId());
+                return false;
+            }
+        });
+    }
+
+    public void removeItemWidthId(int newsId) {
+        for (int i = 0; i <= mNewsList.size(); i++) {
+            if (mNewsList.get(i).getNewsId() == newsId) {
+                mNewsList.remove(i);
+                notifyDataSetChanged();
+                break;
+            }
+        }
     }
 
     @Override
@@ -66,6 +84,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.RecyclerViewHo
 
     public interface MenuItemClickListener {
         void onMenuItemClick(int newsId);
+        void onMenuItemLongClick(int newsId);
     }
-
 }
