@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
+
     private void setNavigationDrawerMenu(List<News> newsList){
         newsList.get( 0 ).setSelected( true ); // auto select first item
         menuAdapter = new MenuAdapter( newsList, this );
@@ -74,20 +75,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 List<News> body1 = new ArrayList<>();
                 body1.addAll( response.body() );
 
-                News newsAddition = new News();
-                newsAddition.setNewsId( -1 );
-                newsAddition.setNewsTitle( "Add Artice" );
-                newsAddition.setDescription( "" );
-                newsAddition.setSelected( false );
-                body1.add( newsAddition );
-
-
-                News categoriesAdittion = new News();
-                categoriesAdittion.setNewsId( -1 );
-                categoriesAdittion.setNewsTitle( "Add Categories" );
-                categoriesAdittion.setDescription( "" );
-                categoriesAdittion.setSelected( false );
-                body1.add( categoriesAdittion );
 
 
                 setNavigationDrawerMenu( body1 );
@@ -102,26 +89,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return super.onCreateOptionsMenu( menu );
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-//        switch (item.getItemId()){
-//            case R.id.action_add_source:
-//                Intent intent = new Intent(this, AddSourceActivity.class);
-//                startActivity(intent);
-//                return true;
-//            default:
+        switch (item.getItemId()){
+            case R.id.nav_add_news:
+                Intent intent = new Intent(this, AddNewsActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.nav_add_categories:
+                 intent = new Intent(this, AddCategoriesActivity.class);
+                startActivity(intent);
+                return true;
+            default:
         return super.onOptionsItemSelected( item );
 
-//        }
+        }
     }
-
     @Override
-    public boolean onNavigationItemSelected(MenuItem item){
-        /*int id = item.getItemId();
+        public boolean onNavigationItemSelected(MenuItem item){
+        int id = item.getItemId();
         Fragment fragment = null;
         Intent intent = null;
         Bundle bundle = new Bundle();
@@ -148,36 +138,39 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //                fragment = new SourceListFragment();
 //                fragment.setArguments(bundle);
 //                break;
-            case R.id.nav_vn_express:
-         //       bundle.putString("category", "VNExpress");
-                bundle.putInt("newsId", 1);
-                fragment = new SourceListFragment();
-                fragment.setArguments(bundle);
+//            case R.id.nav_vn_express:
+//         //       bundle.putString("category", "VNExpress");
+//                bundle.putInt("newsId", 1);
+//                fragment = new SourceListFragment();
+//                fragment.setArguments(bundle);
+//                break;
+//            case R.id.nav_tuoi_tre_online:
+//         //       bundle.putString("category", "Tuổi trẻ Online");
+//                bundle.putInt("newsId", 2 );
+//                fragment = new SourceListFragment();
+//                fragment.setArguments(bundle);
+//                break;
+//            case R.id.nav_other:
+//     //           bundle.putString("category", "Other");
+//                bundle.putInt("newsId", 3 );
+//
+//                fragment = new SourceListFragment();
+//                fragment.setArguments(bundle);
+//                break;
+//            case R.id.nav_about:
+//                fragment = new AboutFragment();
+//                break;
+            case R.id.nav_add_news:
+                intent = new Intent(this, AddNewsActivity.class);
                 break;
-            case R.id.nav_tuoi_tre_online:
-         //       bundle.putString("category", "Tuổi trẻ Online");
-                bundle.putInt("newsId", 2 );
-                fragment = new SourceListFragment();
-                fragment.setArguments(bundle);
+            case R.id.nav_add_categories:
+                intent = new Intent(this, AddCategoriesActivity.class);
                 break;
-            case R.id.nav_other:
-     //           bundle.putString("category", "Other");
-                bundle.putInt("newsId", 3 );
-
-                fragment = new SourceListFragment();
-                fragment.setArguments(bundle);
-                break;
-            case R.id.nav_about:
-                fragment = new AboutFragment();
-                break;
-            case R.id.nav_add_source:
-                intent = new Intent(this, AddSourceActivity.class);
-                break;
-            case R.id.nav_sources:
-                bundle.putString("category", "");
-                fragment = new SourceListFragment();
-                fragment.setArguments(bundle);
-                break;
+//            case R.id.nav_sources:
+//                bundle.putString("category", "");
+//                fragment = new SourceListFragment();
+//                fragment.setArguments(bundle);
+//                break;
             default:
                 fragment = new FeedListFragment();
         }
@@ -191,7 +184,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);*/
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
@@ -242,7 +235,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
             drawer.closeDrawer( GravityCompat.START );
         }
-        if (newsId == 0) {
+//        if (newsId == 0) {
 //            Fragment fragment = null;
 //            Intent intent = null;
 //            Bundle bundle = new Bundle();
@@ -254,19 +247,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 //            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 //            ft.replace(R.id.content_frame, fragment);
 //            ft.commit();
-            Intent intent = new Intent( this, AddNewsActivity.class );
-            startActivity( intent );
-
-            DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
-            drawer.closeDrawer( GravityCompat.START );
-        }
-        if (newsId == -1) {
-            Intent intent = new Intent( this, AddCategoriesActivity.class );
-            startActivity( intent );
-
-            DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
-            drawer.closeDrawer( GravityCompat.START );
-        }
+//            Intent intent = new Intent( this, AddNewsActivity.class );
+//            startActivity( intent );
+//
+//            DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
+//            drawer.closeDrawer( GravityCompat.START );
+//        }
+//        if (newsId == -1) {
+//            Intent intent = new Intent( this, AddCategoriesActivity.class );
+//            startActivity( intent );
+//
+//            DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
+//            drawer.closeDrawer( GravityCompat.START );
+//        }
     }
 
 }

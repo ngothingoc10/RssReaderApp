@@ -16,13 +16,13 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name"/>
+            android:text="Tên chủ đề:"/>
         <EditText
             android:id="@+id/name_input"
             android:layout_marginLeft="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/feed_name"/>
+            android:hint="Nhập tên chủ đề"/>
     </LinearLayout>
 
     <LinearLayout
@@ -33,14 +33,14 @@
             android:layout_marginLeft="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/url" />
+            android:text="Link chủ đề:" />
 
         <EditText
             android:id="@+id/feed_url"
             android:layout_marginLeft="22dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/feed_url" />
+            android:hint="Nhập link chủ đề của báo" />
     </LinearLayout>
 
     <Spinner
@@ -56,6 +56,6 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:onClick="addSource"
-        android:text="@string/add_source"/>
+        android:text="Thêm "/>
 
 </LinearLayout>
