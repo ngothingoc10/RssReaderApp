@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 
-public class FeedListFragment extends ListFragment {
+public class FeedListFragment extends ListFragment{
 
     public static String[] urls;
     SimpleDateFormat dt;
@@ -45,11 +45,16 @@ public class FeedListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
+
+
         Bundle arg = getArguments();
         String url;
         if (arg != null) {
-            long id = arg.getLong( String.valueOf( getId() ) );
-            url = urls[(int) id];
+//            Category category = (Category) arg.get( "object_categories" ) ;
+ //           long id = arg.getLong( String.valueOf( getId() ) );
+//            url = urls[(int) id];
+//            url = category.getRssLink();
+                url = arg.getString( "rssLink" );
         } else {
             url = "https://vnexpress.net/rss/tin-moi-nhat.rss";
         }
