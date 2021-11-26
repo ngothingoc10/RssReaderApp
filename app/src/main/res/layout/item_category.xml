@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipeRevealLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:mode="same_level"
-    app:dragEdge="right">
+    android:background="@android:color/darker_gray"
+    app:dragEdge="right"
+    app:mode="same_level">
 
     <!-- Your secondary layout here -->
     <LinearLayout
@@ -13,17 +14,17 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="70dp"
             android:layout_height="match_parent"
-            android:text="Delete"
-            android:gravity="center"
-            android:textColor="@android:color/white"
             android:background="@android:color/holo_red_dark"
+            android:gravity="center"
+            android:text="Delete"
+            android:textColor="@android:color/white"
 
             />
     </LinearLayout>
-
 
 
     <!-- Your main layout here -->
@@ -32,15 +33,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Ngoc"
-            android:textColor="@android:color/black"
-            android:textSize="18dp"
+            android:background="@android:color/white"
             android:padding="20dp"
-            />
+            android:text="Ngoc"
+            android:textColor="@color/colorPrimaryDark"
+            android:textColorHighlight="@color/colorPrimaryDark"
+            android:textSize="18dp" />
     </LinearLayout>
 
 </com.chauthai.swipereveallayout.SwipeRevealLayout>
