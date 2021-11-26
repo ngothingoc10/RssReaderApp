@@ -9,22 +9,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.prof.rssparser.Article;
 import com.prof.rssparser.Parser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 
-public class FeedListFragment extends ListFragment {
+public class FeedListFragment extends ListFragment{
 
     public static String[] urls;
     SimpleDateFormat dt;
-    RegEx regEx;
+//    RegEx regEx;
     public static String[] img;
 
 
@@ -45,11 +43,16 @@ public class FeedListFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
+
+
         Bundle arg = getArguments();
         String url;
         if (arg != null) {
-            long id = arg.getLong( String.valueOf( getId() ) );
-            url = urls[(int) id];
+//            Category category = (Category) arg.get( "object_categories" ) ;
+ //           long id = arg.getLong( String.valueOf( getId() ) );
+//            url = urls[(int) id];
+//            url = category.getRssLink();
+                url = arg.getString( "rssLink" );
         } else {
             url = "https://vnexpress.net/rss/tin-moi-nhat.rss";
         }
@@ -62,7 +65,7 @@ public class FeedListFragment extends ListFragment {
                 String[] link = new String[list.size()];
                 String[] pubDate = new String[list.size()];
                 String[] description = new String[list.size()];
-                regEx = new RegEx();
+//                regEx = new RegEx();
                 for (int i = 0; i < list.size(); i++) {
                     titles[i] = list.get( i ).getTitle();
                     link[i] = list.get( i ).getLink();
@@ -77,12 +80,9 @@ public class FeedListFragment extends ListFragment {
                     item.put( "title", list.get( i ).getTitle() );
                     String dd = new SimpleDateFormat( "MMM d yyyy, hh:mm" ).format( list.get( i ).getPubDate() );
                     item.put( "date", dd );
-                    String str = regEx.replaceMatches(list.get( i ).getDescription()).substring( 5 );
+                    String str = RegEx.replaceMatches(list.get( i ).getDescription()).substring( 5 );
                     item.put( "descriptions", str );
-                    if (list.get( i ).getDescription() == null) {
-                        System.out.println("afassafafasf");
-                    }
-                    String imgUrl = regEx.findImage(list.get( i ).getDescription());
+                    String imgUrl = RegEx.findImage(list.get( i ).getDescription());
                     item.put("imgUrl", imgUrl);
                     lists.add( item );
                 }
@@ -91,7 +91,7 @@ public class FeedListFragment extends ListFragment {
                                                 lists,
                                                 R.layout.listview_layout,
                                                 new String[]{"title", "date", "descriptions", "imgUrl"},
-                                                new int[]{R.id.text_title, R.id.text_date, R.id.text_description} );
+                                                new int[]{R.id.text_title, R.id.text_date, R.id.text_description, R.id.image} );
                 setListAdapter( adapter );
                 WebviewActivity.links = link;
             }

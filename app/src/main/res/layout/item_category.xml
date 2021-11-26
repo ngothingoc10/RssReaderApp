@@ -28,6 +28,7 @@
 
     <!-- Your main layout here -->
     <LinearLayout
+        android:id="@+id/layout_name_category"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">

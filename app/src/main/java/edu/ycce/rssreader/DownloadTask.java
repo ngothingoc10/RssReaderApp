@@ -1,13 +1,13 @@
 package edu.ycce.rssreader;
 
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
+
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class DownloadTask extends AsyncTask<String, Void, Boolean> {
     ImageView v;

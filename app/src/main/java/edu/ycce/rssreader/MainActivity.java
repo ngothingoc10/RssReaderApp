@@ -1,6 +1,7 @@
 package edu.ycce.rssreader;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -322,3 +323,4 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } );
     }
 }
+
