@@ -9,14 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 import com.prof.rssparser.Article;
 import com.prof.rssparser.Parser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 
@@ -24,7 +22,7 @@ public class FeedListFragment extends ListFragment{
 
     public static String[] urls;
     SimpleDateFormat dt;
-    RegEx regEx;
+//    RegEx regEx;
     public static String[] img;
 
 
@@ -67,20 +65,12 @@ public class FeedListFragment extends ListFragment{
                 String[] link = new String[list.size()];
                 String[] pubDate = new String[list.size()];
                 String[] description = new String[list.size()];
-                String[] desc_txt = new String[list.size()];
-                String[] imgUrl = new String[list.size()];
-
-                String[] img = new String[list.size()];
-                regEx = new RegEx();
+//                regEx = new RegEx();
                 for (int i = 0; i < list.size(); i++) {
                     titles[i] = list.get( i ).getTitle();
                     link[i] = list.get( i ).getLink();
                     pubDate[i] = list.get( i ).getPubDate().toString();
                     description[i] = list.get( i ).getDescription();
-//                    img[i] = (list.get( i ).getDescription().split( "\""))[3];
- //                   desc_txt[i] = regEx.replaceMatches( list.get( i ).getDescription().toString() );
-
-
                 }
 
                 ArrayList<HashMap<String, String>> lists = new ArrayList<>();// List chứa các HanhMap(key, value)
@@ -88,50 +78,22 @@ public class FeedListFragment extends ListFragment{
                 for (int i = 0; i < list.size(); i++) {
                     item = new HashMap<String, String>();
                     item.put( "title", list.get( i ).getTitle() );
-                    Date d = new Date( list.get( i ).getPubDate().toString() );
                     String dd = new SimpleDateFormat( "MMM d yyyy, hh:mm" ).format( list.get( i ).getPubDate() );
                     item.put( "date", dd );
-                    String str = regEx.replaceMatches( list.get( i ).getDescription().toString() ).substring( 5 );
+                    String str = RegEx.replaceMatches(list.get( i ).getDescription()).substring( 5 );
                     item.put( "descriptions", str );
-//                    String[] splited = (list.get( i ).getDescription().split( "\""));
-//                    int t = splited.length;
-//                    String str1 = "";
-//                    String str2 = "";
-//                    if(splited.length >0){
-// //                        str1 =splited[3];
-//                         str2 =splited[4];
-//                    }
-////
-//
-//                    item.put( "descriptions", str2.substring( 10));
-////                    item.put( "img1", str1);
-
-
+                    String imgUrl = RegEx.findImage(list.get( i ).getDescription());
+                    item.put("imgUrl", imgUrl);
                     lists.add( item );
                 }
-                //view lên app
 
-
-                SimpleAdapter adapter = new SimpleAdapter( getLayoutInflater().getContext(), lists, R.layout.listview_layout, new String[]{"title", "date", "descriptions"}, new int[]{R.id.text_title, R.id.text_date, R.id.text_description} );
+                CustomSimpleAdapter adapter = new CustomSimpleAdapter( getLayoutInflater().getContext(),
+                                                lists,
+                                                R.layout.listview_layout,
+                                                new String[]{"title", "date", "descriptions", "imgUrl"},
+                                                new int[]{R.id.text_title, R.id.text_date, R.id.text_description, R.id.image} );
                 setListAdapter( adapter );
-
-//                DescriptionActivity.description = description;
-               WebviewActivity.links = link;
-//                DescriptionActivity.pubDate = pubDate;
-//                DescriptionActivity.img = img;
-//                for (int i = 0; i < list.size(); i++){
-//
-//                WebviewActivity.EXTRA_URL = list.get( i ).getLink();}
-//                Fragment fragment = null;
-//                Intent intent = null;
-//                Bundle bundle = new Bundle();
-//
-//                bundle.putInt( "newsId", link );
-//                fragment = new WebviewActivity();
-//                fragment.setArguments( bundle );
-//      //          WebviewActivity.EXTRA_URL = link;
-
-
+                WebviewActivity.links = link;
             }
 
             @Override
@@ -151,10 +113,7 @@ public class FeedListFragment extends ListFragment{
 
     @Override
     public void onListItemClick(ListView listView, View itemView, int position, long id){
-        if (listener != null)
-            listener.itemClicked( id );
-
-
+        if (listener != null) listener.itemClicked( id );
     }
 
 }

@@ -1,5 +1,9 @@
 package edu.ycce.rssreader;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 import java.util.regex.*;
 
 public class RegEx{
@@ -16,15 +20,10 @@ public class RegEx{
         return html;
     }
 
-    public static String findImage(String html){
-        Matcher matcher = COMPILED_PATTERN.matcher(html);
-        while(matcher.find()){
-            Matcher matcher1 = COMPILED_PATTERN1.matcher(html);
-            while(matcher1.find()){
-                String url = matcher1.group();
-                return url.substring(0, url.length()-1);
-            }
-        }
-        return "not found";
+    public static String findImage(String html) {
+        Document doc = Jsoup.parse(html);
+        Elements images = doc.select("img");
+        String src = images.first().attr("src");
+        return src;
     }
 }
