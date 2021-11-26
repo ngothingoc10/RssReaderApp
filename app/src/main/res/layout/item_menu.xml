@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
-        android:background="#B6AD5E"
+        android:background="#009688"
         android:drawableStart="@android:drawable/ic_menu_send"
         android:drawablePadding="8dp"
         android:ellipsize="end"

@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RssReaderApp.iml" filepath="$PROJECT_DIR$/.idea/modules/RssReaderApp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RssReaderApp.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RssReaderApp.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/RSS-Reader-Android-App.iml" filepath="$PROJECT_DIR$/.idea/modules/RSS-Reader-Android-App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/RSS-Reader-Android-App.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/RSS-Reader-Android-App.app.iml" />
     </modules>
   </component>
 </project>
