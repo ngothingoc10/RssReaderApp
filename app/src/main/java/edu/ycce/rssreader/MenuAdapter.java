@@ -41,15 +41,6 @@ public class MenuAdapter extends RecyclerView.Adapter<MenuAdapter.RecyclerViewHo
             @Override
             public void onClick(View view) {
                 mListener.onMenuItemClick(news.getNewsId());
-
-                for (int i = -1; i <= mNewsList.size() ; i++) {
-                    if (i == currentPosition) {
-                        news.setSelected(true);
-                    } else {
- //                       mNewsList.get(i).setSelected(false);
-                    }
-                }
-                notifyDataSetChanged();
             }
         });
 

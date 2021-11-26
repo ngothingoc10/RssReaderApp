@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".CategoryListActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -13,5 +14,10 @@
         android:background="@android:color/darker_gray">
 
     </android.support.v7.widget.RecyclerView>
+
+    <FrameLayout
+        android:id="@+id/category_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

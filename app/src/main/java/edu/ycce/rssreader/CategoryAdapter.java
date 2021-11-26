@@ -18,9 +18,13 @@ import retrofit.model.Category;
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryHolder> {
     private List<Category> mListCategory;
     private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
+    private IClickItemCategoryListener iClickItemCategoryListener;
 
-    public CategoryAdapter(List<Category> mListCategory){
+    public CategoryAdapter(  List<Category> mListCategory,IClickItemCategoryListener listener1 ){
+
         this.mListCategory = mListCategory;
+        this.iClickItemCategoryListener = listener1;
+
     }
 
     @NonNull
@@ -32,7 +36,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     @Override
     public void onBindViewHolder(@NonNull CategoryHolder categoryHolder, int position){
-        Category category = mListCategory.get( position );
+        final Category category = mListCategory.get( position );
+        final String url = category.getRssLink().toString();
         if(category == null){
             return;
         }
@@ -46,7 +51,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
                 notifyItemRemoved(categoryHolder.getAdapterPosition()  );
             }
 
+        } );
+        categoryHolder.layoutCategoryName.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view){
+                iClickItemCategoryListener.onClickItemCategory( url );
 
+            }
 
 
         } );
@@ -67,13 +78,14 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public class CategoryHolder extends RecyclerView.ViewHolder{
         private SwipeRevealLayout swipeRevealLayout;
         private LinearLayout layoutDelete;
+        private LinearLayout layoutCategoryName;
         private TextView categoryName;
         public CategoryHolder(@NonNull View itemView){
             super( itemView );
             swipeRevealLayout = itemView.findViewById( R.id.swipeRevealLayout );
             layoutDelete = itemView.findViewById( R.id.layout_delete );
             categoryName = itemView.findViewById( R.id.tv_name );
-
+            layoutCategoryName = itemView.findViewById( R.id.layout_name_category );
         }
     }
 }
