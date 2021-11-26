@@ -79,6 +79,9 @@ public class FeedListFragment extends ListFragment {
                     item.put( "date", dd );
                     String str = regEx.replaceMatches(list.get( i ).getDescription()).substring( 5 );
                     item.put( "descriptions", str );
+                    if (list.get( i ).getDescription() == null) {
+                        System.out.println("afassafafasf");
+                    }
                     String imgUrl = regEx.findImage(list.get( i ).getDescription());
                     item.put("imgUrl", imgUrl);
                     lists.add( item );

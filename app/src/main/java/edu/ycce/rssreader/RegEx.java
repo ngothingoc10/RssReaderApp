@@ -23,7 +23,13 @@ public class RegEx{
     public static String findImage(String html) {
         Document doc = Jsoup.parse(html);
         Elements images = doc.select("img");
-        String src = images.first().attr("src");
-        return src;
+        if (images != null) {
+            if (images.first() != null) {
+                String src = images.first().attr("src");
+                return src;
+            }
+        }
+
+        return "https://png.pngtree.com/background/20210717/original/pngtree-purple-glitter-oriented-logo-business-abstract-background-picture-image_1442821.jpg";
     }
 }
