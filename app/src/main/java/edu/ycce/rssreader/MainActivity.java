@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,6 +45,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView( R.layout.activity_main );
         Toolbar toolbar = (Toolbar) findViewById( R.id.toolbar );
         setSupportActionBar( toolbar );
+        String url = "https://vnexpress.net/rss/tin-moi-nhat.rss";
+        if (getIntent() != null && getIntent().getExtras() != null) {
+            url = getIntent().getExtras().getString("rssLink");
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById( R.id.drawer_layout );
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle( this, drawer, toolbar, R.string.nav_open_drawer, R.string.nav_close_drawer );
@@ -53,7 +58,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById( R.id.nav_view );
         navigationView.setNavigationItemSelectedListener( this );
 
+        Bundle bundle = new Bundle();
+        bundle.putString( "rssLink", url );
+
         Fragment fragment = new FeedListFragment();
+        fragment.setArguments(bundle);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.add( R.id.content_frame, fragment );
         ft.commit();
@@ -103,16 +112,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         switch (item.getItemId()) {
             case R.id.nav_add_news:
                 Intent intent = new Intent( this, AddNewsActivity.class );
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity( intent );
                 return true;
             case R.id.nav_add_categories:
                 intent = new Intent( this, AddCategoriesActivity.class );
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity( intent );
                 return true;
             default:
                 return super.onOptionsItemSelected( item );
 
         }
+
     }
 
     @Override

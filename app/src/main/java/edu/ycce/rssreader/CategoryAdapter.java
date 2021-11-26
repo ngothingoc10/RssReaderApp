@@ -57,10 +57,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             public void onClick(View view){
                 iClickItemCategoryListener.onClickItemCategory( url );
 
-
-
-
-
             }
 
 

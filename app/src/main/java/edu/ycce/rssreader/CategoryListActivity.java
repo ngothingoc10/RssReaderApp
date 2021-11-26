@@ -2,6 +2,7 @@ package edu.ycce.rssreader;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.ListFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
@@ -27,10 +28,6 @@ public class CategoryListActivity extends AppCompatActivity {
 
         super.onCreate( savedInstanceState );
         setContentView( R.layout.category_list );
-
-
-
-
 
         // Call API
         ApiService.apiService.getCategories(newsId).enqueue( new Callback<List<Category>>() {
@@ -60,24 +57,13 @@ public class CategoryListActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
                 RecyclerView.ItemDecoration itemDecoration = new DividerItemDecoration( CategoryListActivity.this , DividerItemDecoration.VERTICAL);
                 recyclerView.addItemDecoration( itemDecoration );
-
-
-
-
-
-
-
             }
 
             @Override
             public void onFailure(Call<List<Category>> call, Throwable throwable){
                 Toast.makeText( CategoryListActivity.this, "Call API Error!", Toast.LENGTH_SHORT ).show();
-
             }
         });
-
-
-
     }
 
     private List<Category> getListCategories(){
@@ -85,15 +71,11 @@ public class CategoryListActivity extends AppCompatActivity {
       return list;
     }
     private void onClickGotToDeTail(String url){
-        //     Intent intent = new Intent(mContext, FeedListFragment.class );
-        ListFragment fragment;
         Bundle bundle = new Bundle();
         bundle.putString( "rssLink", url );
-        fragment = new FeedListFragment();
-        fragment.setArguments(bundle);
-
-
-
+        Intent intent = new Intent( this, MainActivity.class );
+        intent.putExtras(bundle);
+        startActivity( intent );
     }
 
 }

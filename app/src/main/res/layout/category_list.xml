@@ -15,4 +15,9 @@
         focusable = "false"
     </android.support.v7.widget.RecyclerView>
 
+    <FrameLayout
+        android:id="@+id/category_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>
